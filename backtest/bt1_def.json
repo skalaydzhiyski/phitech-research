@@ -1,0 +1,12 @@
+{
+  "name": "bt1",
+  "date_ranges": [
+    {"start": "2024-09-24 14:30:00", "end": "2024-09-24 14:40:00"},
+    {"start": "2024-09-24 15:30:00", "end": "2024-09-24 15:45:00"}
+  ],
+  "sg_arrays": [
+  ],
+  "pvars": [
+    {"name": "account_value", "type": "vector", "study_name": "Account Balance Graph", "pkey": 2}
+  ]
+}
