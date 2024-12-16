@@ -25,7 +25,6 @@ def get_backtest_results_for_instrument(bt_name, instrument):
     run_names = get_run_names_for_backtest(bt_name, instrument)
     bt = {"runs": [{} for _ in range(len(run_names))]}
     for idx, run_name in enumerate(run_names):
-        print(f"processing bt run -> {run_name}")
         current_run_path = f"{bt_output_base_path}/{bt_name}/{instrument}/{run_name}"
         files = os.listdir(current_run_path)
         
@@ -51,12 +50,9 @@ def get_backtest_results_for_instrument(bt_name, instrument):
                 elif name == "persistent_values.csv":
                     bt["runs"][idx]["persistent_values"] = pd.read_csv(f"{current_run_path}/persistent_values.csv")
             except Exception as e:
-                print(e)
                 continue
-            
-        print("-"*25)
-
     print('done.')
+    
     bt = dotdict(bt)
     return bt
 
@@ -66,6 +62,15 @@ def get_backtest_results(bt_name):
         instr: get_backtest_results_for_instrument(bt_name, instr)
         for instr in instruments
     }
+
+def remove_backtest_output(bt_name, yes=None):
+    if yes is None:
+        yes = input("are you sure (y/n) ?: ")
+        yes = yes.lower().strip() == 'y'
+    if yes:
+        os.system(f"rm -rf {bt_base_path}/output/{bt_name}")
+    else:
+        print("cannot delete -> specify `yes`")
 
 def remove_depth_files():
     os.system(f'rm -rf {base_depth_path}/*.depth')
