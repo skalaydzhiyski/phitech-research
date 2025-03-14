@@ -1,0 +1,118 @@
+{
+    "workbench.colorTheme": "JupyterLab Light",
+    "workbench.colorCustomizations": {
+        // "editor.background": "#ffffff",
+        // "notebook.cellEditorBackground": "#dddddd",
+    },
+    // Controls if quick suggestions should show up while typing
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    "editor.suggestOnTriggerCharacters": true,
+    // Enable parameter hints
+    "editor.parameterHints.enabled": true,
+    "editor.hover.delay": 100,
+    "editor.guides.indentation": false,
+    "editor.renderLineHighlight": "none",
+    "editor.cursorBlinking": "solid",
+    "editor.suggest.showInlineDetails": false,
+    "debug.inlineValues": "on",
+    "editor.inlayHints.enabled": "off",
+    "vim.disableExtension": true,
+    "notebook.insertToolbarLocation": "notebookToolbar",
+    "notebook.showCellStatusBar": "hidden",
+    "notebook.showFoldingControls": "never",
+    "notebook.stickyScroll.mode": "flat",
+    "notebook.output.textLineLimit": 50,
+    "editor.fontFamily": "Menlo",
+    "editor.fontSize": 11,
+    "editor.fontWeight": "normal",
+    "editor.cursorWidth": 1,
+    "editor.foldingHighlight": false,
+    "editor.folding": false,
+    "jupyter.interactiveWindow.textEditor.cellFolding": false,
+    "editor.showFoldingControls": "never",
+    "editor.fontLigatures": true,
+    "notebook.output.fontSize": 11,
+    "notebook.output.fontFamily": "Menlo",
+    "workbench.iconTheme": "Monokai Classic Icons",
+    "editor.fontVariations": false,
+    "editor.formatOnSave": true,
+    "terminal.integrated.fontFamily": "Ubuntu Mono",
+    "terminal.integrated.fontWeight": "normal",
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "notebook.defaultFormatter": "ms-python.black-formatter",
+    "notebook.formatOnCellExecution": true,
+    "github.copilot.advanced": {},
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "python.languageServer": "Pylance",
+    "python.analysis.autoFormatStrings": true,
+    "jupyter.completionTriggerCharacters": {
+        "bash": [
+            "$",
+            "{"
+        ],
+        "java": [
+            ".",
+            "@",
+            "#"
+        ],
+        "javascript": [
+            ".",
+            "\"",
+            "'",
+            "/",
+            "@"
+        ],
+        "python": [
+            ".",
+            "%",
+            "'",
+            "\""
+        ],
+        "jupyter": [
+            ".",
+            "%"
+        ],
+        "julia": [
+            "."
+        ],
+        "r": [
+            "[",
+            "(",
+            ",",
+            "$",
+            "@",
+            "\"",
+            "'"
+        ],
+        "rust": [
+            ".",
+            ":"
+        ],
+        "scala": [
+            "."
+        ],
+        "typescript": [
+            ".",
+            "\"",
+            "'",
+            "/",
+            "@",
+            "<"
+        ]
+    },
+    "terminal.integrated.inheritEnv": false,
+    "terminal.integrated.letterSpacing": 0,
+    "editor.letterSpacing": 0,
+    "editor.lineHeight": 1.2,
+    "terminal.integrated.fontSize": 13,
+    "jupyter.askForKernelRestart": false,
+}
