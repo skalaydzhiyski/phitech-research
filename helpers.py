@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-import vectorbt as vbt
+import vectorbtpro as vbt
 
 
 def make_backtest_universe(instruments, col='close', dropna=False):
