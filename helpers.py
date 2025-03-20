@@ -3,22 +3,19 @@ import pandas as pd
 import vectorbtpro as vbt
 
 
-def make_backtest_universe(instruments, col='close', dropna=False):
-    series = [i[col] for i in instruments.values()]
-    res = pd.concat(series, keys=instruments.keys(), names=["ticker"], axis=1)
-    res.ffill(inplace=True)
-    return res
+class SierraChartData(vbt.Data):
+    @classmethod
+    def _load_from_local(
+        cls, symbol, interval, base_data_path="../../phitech-data/01_raw"
+    ):
+        res = pd.read_csv(f"{base_data_path}/{symbol}_{interval}.csv")
+        res["timestamp"] = res["date"] + " " + res["time"]
+        res = res.drop(columns=["date", "time"])
+        return res
 
-
-def load_instruments(base_path="../../phitech-data/01_raw"):
-    res = {}
-    for fname in os.listdir(base_path):
-        df = pd.read_csv(f"{base_path}/{fname}")
-        df['timestamp'] = df['date'] + " " + df['time']
-        df = df.drop(columns=['date', 'time'])
-        df = df.set_index('timestamp')
-        res[fname.split("_")[0]] = df
-    return res
+    @classmethod
+    def fetch_symbol(cls, symbol, interval, **kwargs):
+        return SierraChartData._load_from_local(symbol, interval, **kwargs)
 
 
 def to_indicator(series):
