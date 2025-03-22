@@ -9,7 +9,7 @@ class SierraChartData(vbt.Data):
     def _load_from_local(
         cls,
         symbol,
-        interval,
+        timeframe,
         start=None,
         end=None,
     ):
@@ -21,16 +21,17 @@ class SierraChartData(vbt.Data):
             base_data_path = "../../phitech-data/01_raw"
             separator = "/"
 
-        res = pd.read_csv(f"{base_data_path}{separator}{symbol}_{interval}.csv")
+        res = pd.read_csv(f"{base_data_path}{separator}{symbol}_{timeframe}.csv")
         res["timestamp"] = res["date"] + " " + res["time"]
         res["timestamp"] = pd.to_datetime(res.timestamp)
         res = res.reset_index(drop=True).set_index("timestamp")
         res = res.drop(columns=["date", "time"])
+        res = res[res.close.isna()]
         return res[start:end]
 
     @classmethod
-    def fetch_symbol(cls, symbol, interval, **kwargs):
-        return SierraChartData._load_from_local(symbol, interval, **kwargs)
+    def fetch_symbol(cls, symbol, timeframe, **kwargs):
+        return SierraChartData._load_from_local(symbol, timeframe, **kwargs)
 
 
 def to_indicator(series):
