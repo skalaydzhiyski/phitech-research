@@ -1,8 +1,46 @@
 {
-    "workbench.colorTheme": "JupyterLab Light",
+    "editor.tokenColorCustomizations": {
+        "[*Light*]": {
+            "textMateRules": [{}]
+        },
+        "[*Dark*]": {
+            "textMateRules": [
+                {
+                    "scope": [
+                        "string.quoted.double.html",
+                        "variable.other.constant.js",
+                        "variable.other.object.property.js",
+                        "string.quoted.double.json",
+                        "markup.fenced_code.block.markdown",
+                        "markup.inline.raw.string.markdown",
+                        "variable.function",
+                        "keyword.other.special-method",
+                        "entity.name.function",
+                        "meta.function-call.generic.python",
+                        "variable.function.constructor",
+                        "source.sass keyword.control"
+                    ],
+                    "settings": {
+                        "foreground": "#35a1ff"
+                    }
+                }
+            ]
+        }
+    },
     "workbench.colorCustomizations": {
+        "minimap.background": "#000000",
+		"editorSuggestWidget.foreground": "#ffffff",
+        "notebook.editorBackground": "#303030",
+        "editor.selectionBackground": "#555555"
+
         // "editor.background": "#ffffff",
         // "notebook.cellEditorBackground": "#dddddd",
+        // "notebook.outputContainerBackgroundColor": "#111111",
+        // "notebook.outputContainerBorderColor": "#ffffff",
+        // "editor.background": "#2a2a2a"
+        // "notebook.focusedCellBackground": "#000000",
+        // "notebook.cellEditorBackground": "#333333",
+        // "notebook.cellBorderColor": "#555555"
     },
     // Controls if quick suggestions should show up while typing
     "editor.quickSuggestions": {
@@ -26,18 +64,17 @@
     "notebook.showFoldingControls": "never",
     "notebook.stickyScroll.mode": "flat",
     "notebook.output.textLineLimit": 50,
-    "editor.fontFamily": "Menlo",
+    "editor.fontFamily": "Roboto Mono Medium",
     "editor.fontSize": 11,
     "editor.fontWeight": "normal",
     "editor.cursorWidth": 1,
-    "editor.foldingHighlight": false,
-    "editor.folding": false,
+    "editor.foldingHighlight": true,
+    "editor.folding": true,
     "jupyter.interactiveWindow.textEditor.cellFolding": false,
     "editor.showFoldingControls": "never",
     "editor.fontLigatures": true,
     "notebook.output.fontSize": 11,
-    "notebook.output.fontFamily": "Menlo",
-    "workbench.iconTheme": "Monokai Classic Icons",
+    "notebook.output.fontFamily": "Roboto Mono Medium",
     "editor.fontVariations": false,
     "editor.formatOnSave": true,
     "terminal.integrated.fontFamily": "Ubuntu Mono",
@@ -115,4 +152,14 @@
     "editor.lineHeight": 1.2,
     "terminal.integrated.fontSize": 13,
     "jupyter.askForKernelRestart": false,
+    "github.copilot.chat.codesearch.enabled": true,
+    "github.copilot.selectedCompletionModel": "gpt-4o-copilot",
+    "workbench.iconTheme": "Monokai Classic Icons",
+    "files.autoSave": "afterDelay",
+    "chat.editor.fontSize": 11.4,
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "workbench.colorTheme": "Jupyter Dark Theme",
 }
