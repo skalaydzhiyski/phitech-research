@@ -34,6 +34,13 @@ class SierraChartData(vbt.Data):
         return SierraChartData._load_from_local(symbol, **kwargs)
 
 
+    @classmethod
+    def ffill(cls, df):
+        for symbol in df.data.keys():
+            df.data[symbol] = df.data[symbol].ffill()
+        return df
+
+
 def to_indicator(series):
     return (
         vbt.IndicatorFactory(
