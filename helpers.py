@@ -2,9 +2,39 @@ import os
 import pandas as pd
 import vectorbtpro as vbt
 import platform
+from vectorbtpro import _typing as tp
+from vectorbtpro.utils.config import merge_dicts, Config, HybridConfig
+from vectorbtpro.generic import nb as generic_nb
 
 
 class SierraChartData(vbt.Data):
+    _feature_config: tp.ClassVar[Config] = HybridConfig(
+        {
+            "bidvolume": dict(
+                resample_func=lambda self, obj, resampler: obj.vbt.resample_apply(
+                    resampler,
+                    generic_nb.sum_reduce_nb,
+                )
+            ),
+            "askvolume": dict(
+                resample_func=lambda self, obj, resampler: obj.vbt.resample_apply(
+                    resampler,
+                    generic_nb.sum_reduce_nb,
+                )
+            ),
+            "numberoftrades": dict(
+                resample_func=lambda self, obj, resampler: obj.vbt.resample_apply(
+                    resampler,
+                    generic_nb.sum_reduce_nb,
+                )
+            ),
+        }
+    )
+
+    @property
+    def feature_config(self) -> Config:
+        return self._feature_config
+
     @classmethod
     def _load_from_local(
         cls,
@@ -31,6 +61,8 @@ class SierraChartData(vbt.Data):
         symbol_path = f"{base_data_path}{separator}{symbol}_1000d.parquet"
         res = pd.read_parquet(symbol_path, filters=filters)
         res["timestamp"] = pd.to_datetime(res.timestamp)
+        # remove date to make resampling easier.
+        res = res.drop(columns=["date"])
         res = res.reset_index(drop=True).set_index("timestamp")
         return res
 
