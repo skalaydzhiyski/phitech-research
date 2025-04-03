@@ -9,30 +9,34 @@ class SierraChartData(vbt.Data):
     def _load_from_local(
         cls,
         symbol,
-        timeframe,
         start=None,
         end=None,
     ):
         # I fully understand there are better ways of doing this :)
-        if platform.system().strip().lower() == 'windows':
+        if platform.system().strip().lower() == "windows":
             base_data_path = "H:\\phitech-data\\01_raw"
             separator = "\\"
         else:
             base_data_path = "../../phitech-data/01_raw"
             separator = "/"
 
-        symbol_path = f"{base_data_path}{separator}{symbol}_{timeframe}.csv"
-        res = pd.read_csv(symbol_path)
-        res["timestamp"] = res["date"] + " " + res["time"]
+        filters = None
+        if start is not None:
+            filters = filters or []
+            filters.append(("date", ">=", start))
+        if end is not None:
+            filters = filters or []
+            filters.append(("date", "<=", end))
+
+        symbol_path = f"{base_data_path}{separator}{symbol}_1000d.parquet"
+        res = pd.read_parquet(symbol_path, filters=filters)
         res["timestamp"] = pd.to_datetime(res.timestamp)
         res = res.reset_index(drop=True).set_index("timestamp")
-        res = res.drop(columns=["date", "time"])
-        return res[start:end]
+        return res
 
     @classmethod
     def fetch_symbol(cls, symbol, **kwargs):
         return SierraChartData._load_from_local(symbol, **kwargs)
-
 
     @classmethod
     def ffill(cls, df):
