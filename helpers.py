@@ -35,6 +35,12 @@ class SierraChartData(vbt.Data):
     def feature_config(self) -> Config:
         return self._feature_config
 
+    def resample(self, *args, **kwargs):
+        resampled = super().resample(*args, **kwargs)
+        for k in resampled.data.keys():
+            resampled.data[k] = resampled.data[k].ffill()
+        return resampled
+
     @classmethod
     def _load_from_local(
         cls,
@@ -56,13 +62,22 @@ class SierraChartData(vbt.Data):
             filters.append(("date", ">=", start))
         if end is not None:
             filters = filters or []
-            filters.append(("date", "<=", end))
+            filters.append(("date", "<", end))
 
         symbol_path = f"{base_data_path}{separator}{symbol}_1000d.parquet"
-        res = pd.read_parquet(symbol_path, filters=filters)
+        columns = [
+            "timestamp",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "bidvolume",
+            "askvolume",
+            "numberoftrades",
+        ]
+        res = pd.read_parquet(symbol_path, filters=filters, columns=columns)
         res["timestamp"] = pd.to_datetime(res.timestamp)
-        # remove date to make resampling easier.
-        res = res.drop(columns=["date"])
         res = res.reset_index(drop=True).set_index("timestamp")
         return res
 
@@ -75,6 +90,17 @@ class SierraChartData(vbt.Data):
         for symbol in df.data.keys():
             df.data[symbol] = df.data[symbol].ffill()
         return df
+
+
+def get_date_chunks(start, end, chunk_size=1):
+    date_ranges = []
+    start_, end_ = pd.to_datetime(start), pd.to_datetime(end)
+    current = start_
+    while current < end_:
+        next_date = min(current + pd.Timedelta(days=chunk_size), end_)
+        date_ranges.append((str(current.date()), str(next_date.date())))
+        current = next_date
+    return date_ranges
 
 
 def to_indicator(series):
