@@ -5,14 +5,32 @@ import platform
 from vectorbtpro import _typing as tp
 from vectorbtpro.utils.config import merge_dicts, Config, HybridConfig
 from vectorbtpro.generic import nb as generic_nb
+from numba import njit
 
 
-class Signal:
-    LONG_ENTER = (True, False, False, False)
-    LONG_EXIT = (False, True, False, False)
-    SHORT_ENTER = (False, False, True, False)
-    SHORT_EXIT = (False, False, False, True)
-    NO_SIGNAL = (False, False, False, False)
+@njit(nogil=True)
+def LONG_ENTER():
+    return (True, False, False, False)
+
+
+@njit(nogil=True)
+def LONG_EXIT():
+    return (True, False, False, False)
+
+
+@njit(nogil=True)
+def SHORT_ENTER():
+    return (False, False, True, False)
+
+
+@njit(nogil=True)
+def SHORT_EXIT():
+    return (False, False, False, True)
+
+
+@njit(nogil=True)
+def NO_SIGNAL():
+    return (False, False, False, False)
 
 
 class SierraChartData(vbt.Data):
