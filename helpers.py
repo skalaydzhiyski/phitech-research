@@ -7,6 +7,14 @@ from vectorbtpro.utils.config import merge_dicts, Config, HybridConfig
 from vectorbtpro.generic import nb as generic_nb
 
 
+class Signal:
+    LONG_ENTER = (True, False, False, False)
+    LONG_EXIT = (False, True, False, False)
+    SHORT_ENTER = (False, False, True, False)
+    SHORT_EXIT = (False, False, False, True)
+    NO_SIGNAL = (False, False, False, False)
+
+
 class SierraChartData(vbt.Data):
     _feature_config: tp.ClassVar[Config] = HybridConfig(
         {
