@@ -15,7 +15,7 @@ def LONG_ENTER():
 
 @njit(nogil=True)
 def LONG_EXIT():
-    return (True, False, False, False)
+    return (False, True, False, False)
 
 
 @njit(nogil=True)
